@@ -1,5 +1,7 @@
 'use client';
 import { useState } from 'react';
+import AuthHeader from '../components/AuthHeader';
+import './auth.css';
 
 export default function Registratie() {
   const [naam, setNaam] = useState('');
@@ -58,119 +60,107 @@ export default function Registratie() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Maak een account aan
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            Vul je gegevens in om te beginnen
-          </p>
-        </div>
+    <div className="auth-page">
+      <div className="auth-container">
+        <AuthHeader 
+          title="Maak een account aan"
+          subtitle="Vul je gegevens in om te beginnen"
+        />
         
-        <form onSubmit={handleSubmit} className="mt-8 space-y-6 bg-white p-8 rounded-lg shadow-lg">
-          <div className="space-y-4">
-            <div>
-              <label htmlFor="naam" className="block text-sm font-medium text-gray-700 mb-1">
-                Volledige naam
-              </label>
-              <input
-                id="naam"
-                name="naam"
-                type="text"
-                required
-                value={naam}
-                onChange={(e) => setNaam(e.target.value)}
-                className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Voer je volledige naam in"
-              />
-            </div>
-            
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                E-mailadres
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="voer@email.com"
-              />
-            </div>
-            
-            <div>
-              <label htmlFor="wachtwoord" className="block text-sm font-medium text-gray-700 mb-1">
-                Wachtwoord
-              </label>
-              <input
-                id="wachtwoord"
-                name="wachtwoord"
-                type="password"
-                required
-                value={wachtwoord}
-                onChange={(e) => setWachtwoord(e.target.value)}
-                className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Minimaal 4 karakters"
-                minLength="4"
-              />
-            </div>
-            
-            <div>
-              <label htmlFor="bevestigWachtwoord" className="block text-sm font-medium text-gray-700 mb-1">
-                Bevestig wachtwoord
-              </label>
-              <input
-                id="bevestigWachtwoord"
-                name="bevestigWachtwoord"
-                type="password"
-                required
-                value={bevestigWachtwoord}
-                onChange={(e) => setBevestigWachtwoord(e.target.value)}
-                className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Herhaal je wachtwoord"
-              />
-            </div>
+        <form onSubmit={handleSubmit} className="auth-form">
+          <div className="form-group">
+            <label htmlFor="naam" className="form-label">
+              Volledige naam
+            </label>
+            <input
+              id="naam"
+              name="naam"
+              type="text"
+              required
+              value={naam}
+              onChange={(e) => setNaam(e.target.value)}
+              className="form-input"
+              placeholder="Voer je volledige naam in"
+            />
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="email" className="form-label">
+              E-mailadres
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="form-input"
+              placeholder="voer@email.com"
+            />
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="wachtwoord" className="form-label">
+              Wachtwoord
+            </label>
+            <input
+              id="wachtwoord"
+              name="wachtwoord"
+              type="password"
+              required
+              value={wachtwoord}
+              onChange={(e) => setWachtwoord(e.target.value)}
+              className="form-input"
+              placeholder="Minimaal 4 karakters"
+              minLength="4"
+            />
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="bevestigWachtwoord" className="form-label">
+              Bevestig wachtwoord
+            </label>
+            <input
+              id="bevestigWachtwoord"
+              name="bevestigWachtwoord"
+              type="password"
+              required
+              value={bevestigWachtwoord}
+              onChange={(e) => setBevestigWachtwoord(e.target.value)}
+              className="form-input"
+              placeholder="Herhaal je wachtwoord"
+            />
           </div>
 
           {melding && (
-            <div className={`p-3 rounded-md text-sm ${
-              meldingType === 'success' 
-                ? 'bg-green-50 text-green-700 border border-green-200' 
-                : 'bg-red-50 text-red-700 border border-red-200'
-            }`}>
+            <div className={`message ${meldingType === 'success' ? 'message-success' : 'message-error'}`}>
               {melding}
             </div>
           )}
 
-          <div>
-            <button
-              type="submit"
-              disabled={loading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
-            >
-              {loading ? (
-                <span className="flex items-center">
-                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  Account aanmaken...
-                </span>
-              ) : (
-                'Account aanmaken'
-              )}
-            </button>
-          </div>
+          <button
+            type="submit"
+            disabled={loading}
+            className="auth-button"
+          >
+            {loading ? (
+              <span className="button-content">
+                <svg className="spinner" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="spinner-circle" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="spinner-path" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Account aanmaken...
+              </span>
+            ) : (
+              'Account aanmaken'
+            )}
+          </button>
 
-          <div className="text-center">
-            <p className="text-sm text-gray-600">
+          <div className="auth-links">
+            <p className="auth-link-text">
               Heb je al een account?{' '}
-              <a href="/login" className="font-medium text-indigo-600 hover:text-indigo-500">
+              <a href="/login" className="auth-link">
                 Log hier in
               </a>
             </p>
